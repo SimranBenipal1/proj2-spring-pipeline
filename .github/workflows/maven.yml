@@ -28,7 +28,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean install
+      run: mvn clean install -f proj2-spring/pom.xml
     - name: Deploy in EC2
       env:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
