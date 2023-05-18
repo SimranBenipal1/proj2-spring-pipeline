@@ -41,5 +41,4 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
             ^C
             java -jar proj2-spring-0.0.1-SNAPSHOT.jar
-            touch pipelinefinished
           '
