@@ -34,18 +34,10 @@ jobs:
           PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY  }}
           HOSTNAME : ${{ secrets.HOSTNAME  }}
           USER_NAME : ${{ secrets.USER_NAME  }}
-            
-#      run: |
-#        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-#        scp -o StrictHostKeyChecking=no -i private_key proj2-spring/target/proj2-spring-0.0.1-SNAPSHOT.jar ${USER_NAME}@${HOSTNAME}:/home/ec2-user/
-#        ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-#            kill -9 $(lsof -t -i:8080)
-#            nohup java -jar proj2-spring-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
-#          '
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-            echo Port 8080 is going to be killed && fuser -k -n tcp 8080 
+            kill -9 $(lsof -t -i:8080)
           '
         scp -o StrictHostKeyChecking=no -i private_key proj2-spring/target/proj2-spring-0.0.1-SNAPSHOT.jar ${USER_NAME}@${HOSTNAME}:/home/ec2-user/
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
