@@ -39,6 +39,6 @@ jobs:
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         scp -o StrictHostKeyChecking=no -i private_key proj2-spring/target/proj2-spring-0.0.1-SNAPSHOT.jar ${USER_NAME}@${HOSTNAME}:/home/ec2-user/
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-            ^C
-            java -jar proj2-spring-0.0.1-SNAPSHOT.jar
+            kill -9 $(lsof -t -i:8080)
+            nohup java -jar proj2-spring-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
           '
