@@ -45,7 +45,7 @@ jobs:
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-            fuser -k -n tcp 8080 || echo Port 8080 is unused
+            echo Port 8080 is going to be killed && fuser -k -n tcp 8080 
           '
         scp -o StrictHostKeyChecking=no -i private_key proj2-spring/target/proj2-spring-0.0.1-SNAPSHOT.jar ${USER_NAME}@${HOSTNAME}:/home/ec2-user/
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
