@@ -29,3 +29,11 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file proj2-spring/pom.xml
+    - name: ls -a via ssh
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          ls -a
+        host: ${{ secrets.HOST }}
+        user: ec2-user
+        key: ${{ secrets.PRIVATE_KEY}}
