@@ -35,6 +35,10 @@ public class Reservation {
 
     private Date endDate;
 
+    public Reservation() {
+    	
+    }
+    
 	public Reservation(Long id, User user, HotelRoom hotelRoom,
 			String reservationStatus, Date reservationTime, Date startDate, Date endDate) {
 		super();

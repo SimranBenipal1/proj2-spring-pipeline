@@ -1,5 +1,9 @@
 package com.skillstorm.demo.models;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,10 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +29,7 @@ public class User {
     private String name;
 
     @Column(unique = true)
-    private String email;
+    private String email; 		//This doubles as the user name.
 
     private String phoneNumber;
 
@@ -28,10 +38,15 @@ public class User {
     private String timezone;
 
     private String password;
+    
+    private String role;
 
-
+    public User() {
+    	
+    }
+    
 	public User(Long id, String name, String email, String phoneNumber, String language, String timezone,
-			String password) {
+			String password, String role) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,6 +55,7 @@ public class User {
 		this.language = language;
 		this.timezone = timezone;
 		this.password = password;
+		this.role = role;
 	}
 
 	public Long getId() {
@@ -90,12 +106,49 @@ public class User {
 		this.timezone = timezone;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getPassword() {
 		return password;
 	}
+	
+	public String getRole() {
+		return role;
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	@JsonIgnore
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
+		SimpleGrantedAuthority userRole = new SimpleGrantedAuthority(role);
+		authorities.add(userRole);
+		
+		return authorities;
+	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String getUsername() {
+		return this.getEmail();
+	}
+
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	public boolean isEnabled() {
+		return true;
 	}
 	
 }

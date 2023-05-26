@@ -8,19 +8,21 @@ public class UserDTO {
     private String phoneNumber;
     private String language;
     private String timezone;
+    private String role;
 
     // Constructors
 
     public UserDTO() {
     }
 
-    public UserDTO(Long id, String name, String email, String phoneNumber, String language, String timezone) {
+    public UserDTO(Long id, String name, String email, String phoneNumber, String language, String timezone, String role) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.language = language;
         this.timezone = timezone;
+        this.role = role;
     }
 
     // Getters and Setters
@@ -72,4 +74,14 @@ public class UserDTO {
     public void setTimezone(String timezone) {
         this.timezone = timezone;
     }
+    
+    public String getRole() {
+    	return this.role;
+    }
+    
+    public void setRole(String role) {
+    	this.role = role;
+    }
+    
+
 }

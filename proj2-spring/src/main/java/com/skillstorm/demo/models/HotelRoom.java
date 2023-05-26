@@ -21,6 +21,10 @@ public class HotelRoom {
 
     private String availabilityStatus;
     
+    public HotelRoom() {
+    	
+    }
+    
 	public HotelRoom(Long id, String roomNumber, String roomType, String availabilityStatus) {
 		super();
 		this.id = id;
