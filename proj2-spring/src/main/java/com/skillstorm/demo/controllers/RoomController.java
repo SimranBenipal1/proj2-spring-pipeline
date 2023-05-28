@@ -3,6 +3,8 @@ package com.skillstorm.demo.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +20,11 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 
-	@GetMapping
-	public ResponseEntity<List<HotelRoom>> getAllRooms() {
-		List<HotelRoom> rooms = roomService.findAllRooms();
-		return new ResponseEntity<>(rooms, HttpStatus.OK);
-	}
+    @GetMapping
+    public ResponseEntity<Page<HotelRoom>> getAllRooms(Pageable pageable) {
+        Page<HotelRoom> rooms = roomService.findAllRooms(pageable);
+        return new ResponseEntity<>(rooms, HttpStatus.OK);
+    }
 
 	@GetMapping("/{id}")
 	public ResponseEntity<HotelRoom> getRoomById(@PathVariable long id) {
@@ -52,4 +54,6 @@ public class RoomController {
 		roomService.deleteRoom(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+	
 }
