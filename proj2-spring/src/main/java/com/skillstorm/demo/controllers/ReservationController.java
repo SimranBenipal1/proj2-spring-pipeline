@@ -55,4 +55,10 @@ public class ReservationController {
 		reservationService.deleteReservation(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Reservation>> getReservationsByUserId(@PathVariable long userId) {
+        List<Reservation> reservations = reservationService.findReservationsByUserId(userId);
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
 }

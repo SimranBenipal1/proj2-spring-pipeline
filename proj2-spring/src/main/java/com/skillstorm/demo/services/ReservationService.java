@@ -96,4 +96,8 @@ public class ReservationService {
 		emailService.sendMail(toEmail, subject, message);
 		return reservationRepo.save(updatedReservation);
 	}
+	
+    public List<Reservation> findReservationsByUserId(long userId) {
+        return reservationRepo.findByUserId(userId);
+    }
 }
