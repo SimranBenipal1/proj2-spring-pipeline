@@ -9,6 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,12 +33,18 @@ public class Reservation {
     @JoinColumn(name = "room_id")
     private HotelRoom hotelRoom;
 
+    @NotBlank(message = "Reservation status is required")
     private String reservationStatus;
 
+    @NotNull(message = "Reservation time is required")
     private Date reservationTime;
 
+    @NotNull(message = "Start date is required")
+    @FutureOrPresent(message = "Start date must be in the present or future")
     private Date startDate;
 
+    @NotNull(message = "End date is required")
+    @Future(message = "End date must be in the future")
     private Date endDate;
 
     public Reservation() {

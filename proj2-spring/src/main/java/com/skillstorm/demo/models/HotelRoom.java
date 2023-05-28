@@ -7,6 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.URL;
 
 
 @Entity
@@ -17,14 +21,19 @@ public class HotelRoom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Room number is required")
     private String roomNumber;
 
+    @NotBlank(message = "Room type is required")
     private String roomType;
 
+    @NotBlank(message = "Availability status is required")
     private String availabilityStatus;
-    
+   
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     private BigDecimal price;
     
+    @URL(message = "Invalid picture URL")
     private String pictureUrl;
     
     public HotelRoom() {
