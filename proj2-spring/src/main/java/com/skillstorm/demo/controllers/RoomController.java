@@ -12,6 +12,7 @@ import com.skillstorm.demo.services.RoomService;
 
 @RestController
 @RequestMapping("/rooms")
+@CrossOrigin
 public class RoomController {
 
 	@Autowired

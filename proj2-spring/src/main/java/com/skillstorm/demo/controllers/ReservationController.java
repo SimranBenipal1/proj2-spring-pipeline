@@ -12,6 +12,7 @@ import com.skillstorm.demo.services.ReservationService;
 
 @RestController
 @RequestMapping("/reservations")
+@CrossOrigin
 public class ReservationController {
 
 	@Autowired
