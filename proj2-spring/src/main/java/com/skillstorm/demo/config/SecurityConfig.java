@@ -16,7 +16,7 @@ public class SecurityConfig {
 		//http.authorizeHttpRequests().anyRequest().permitAll();
 		
 		http.authorizeHttpRequests()
-			.mvcMatchers("/hello", "users/register").permitAll()
+			.mvcMatchers("/hello", "users/register", "/rooms").permitAll()
 			.anyRequest().authenticated();
 		
 		http.httpBasic();
