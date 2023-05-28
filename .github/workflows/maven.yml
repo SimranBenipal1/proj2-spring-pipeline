@@ -39,9 +39,9 @@ jobs:
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} "
-            PID=\$(netstat -nlp | grep :5432 | awk '{print \\\$7}' | awk -F'/' '{ print \\\$1 }')
-            if [ ! -z \$PID ]; then
-              kill -9 \$PID
+            PID=\$(pgrep -f '.*:5432.*')
+            if [ -n \"\$PID\" ]; then
+              kill -9 \"\$PID\"
             fi
           "
         scp -o StrictHostKeyChecking=no -i private_key proj2-spring/target/proj2-spring-0.0.1-SNAPSHOT.jar ${USER_NAME}@${HOSTNAME}:/home/ec2-user/
