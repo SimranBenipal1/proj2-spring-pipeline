@@ -1,7 +1,5 @@
 package com.skillstorm.demo.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +37,9 @@ public class RoomService {
 				room.getId(),
 				room.getRoomNumber(),
 				room.getRoomType(),
-				room.getAvailabilityStatus());
+				room.getAvailabilityStatus(),
+				room.getPrice(),
+				room.getPictureUrl());
 		return roomRepo.save(updatedRoom);
 	}
 }

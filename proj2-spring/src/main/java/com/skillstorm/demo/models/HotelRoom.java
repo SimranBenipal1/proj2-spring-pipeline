@@ -1,5 +1,7 @@
 package com.skillstorm.demo.models;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,16 +23,22 @@ public class HotelRoom {
 
     private String availabilityStatus;
     
+    private BigDecimal price;
+    
+    private String pictureUrl;
+    
     public HotelRoom() {
     	
     }
     
-	public HotelRoom(Long id, String roomNumber, String roomType, String availabilityStatus) {
+	public HotelRoom(Long id, String roomNumber, String roomType, String availabilityStatus, BigDecimal price, String pictureUrl) {
 		super();
 		this.id = id;
 		this.roomNumber = roomNumber;
 		this.roomType = roomType;
 		this.availabilityStatus = availabilityStatus;
+		this.price = price;
+		this.pictureUrl = pictureUrl;
 	}
 
 	public Long getId() {
@@ -65,5 +73,20 @@ public class HotelRoom {
 		this.availabilityStatus = availabilityStatus;
 	}
     
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+    
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
     
 }
