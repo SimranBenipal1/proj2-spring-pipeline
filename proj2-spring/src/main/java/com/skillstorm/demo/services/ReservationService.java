@@ -40,6 +40,13 @@ public class ReservationService {
 	public Reservation createReservation(Reservation reservation) {
         User user = userRepo.findById(reservation.getUser().getId()).orElseThrow();
         HotelRoom room = roomRepo.findById(reservation.getHotelRoom().getId()).orElseThrow();
+        
+        List<Reservation> conflictingReservations = reservationRepo.findConflictingReservations(room.getId(), reservation.getStartDate(), reservation.getEndDate());
+
+        System.out.println(conflictingReservations.size());
+        if (conflictingReservations.size() > 0) {
+        	throw new RuntimeException("There is a conflict in reservation time");
+        }
 		
         String toEmail = user.getEmail();
 		String subject = "Reservation Created";
@@ -77,6 +84,13 @@ public class ReservationService {
 		
         User user = userRepo.findById(reservation.getUser().getId()).orElseThrow();
         HotelRoom room = roomRepo.findById(reservation.getHotelRoom().getId()).orElseThrow();
+        
+        List<Reservation> conflictingReservations = reservationRepo.findConflictingReservations(room.getId(), reservation.getStartDate(), reservation.getEndDate());
+
+        System.out.println(conflictingReservations.size());
+        if (conflictingReservations.size() > 0) {
+        	throw new RuntimeException("There is a conflict in reservation time");
+        }
 		
         String toEmail = user.getEmail();
 		String subject = "Reservation Updated";
@@ -93,7 +107,7 @@ public class ReservationService {
 		System.out.println(subject);
 		System.out.println(message);
 		
-		emailService.sendMail(toEmail, subject, message);
+		//emailService.sendMail(toEmail, subject, message);
 		return reservationRepo.save(updatedReservation);
 	}
 	

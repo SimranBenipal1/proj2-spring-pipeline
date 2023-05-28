@@ -21,7 +21,6 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-	@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
