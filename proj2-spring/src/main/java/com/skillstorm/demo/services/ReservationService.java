@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.skillstorm.demo.models.HotelRoom;
 import com.skillstorm.demo.models.Reservation;
+import com.skillstorm.demo.models.User;
 import com.skillstorm.demo.repositories.ReservationRepo;
+import com.skillstorm.demo.repositories.RoomRepo;
+import com.skillstorm.demo.repositories.UserRepo;
 
 @Service
 @Transactional
@@ -15,6 +19,15 @@ public class ReservationService {
 
 	@Autowired
 	private ReservationRepo reservationRepo;
+	
+    @Autowired
+    private UserRepo userRepo;
+    
+	@Autowired
+	private RoomRepo roomRepo;
+	
+	@Autowired
+	private EmailService emailService;
 
 	public List<Reservation> findAllReservations() {
 		return reservationRepo.findAll();
@@ -25,6 +38,26 @@ public class ReservationService {
 	}
 
 	public Reservation createReservation(Reservation reservation) {
+        User user = userRepo.findById(reservation.getUser().getId()).orElseThrow();
+        HotelRoom room = roomRepo.findById(reservation.getHotelRoom().getId()).orElseThrow();
+		
+        String toEmail = user.getEmail();
+		String subject = "Reservation Created";
+		String message =
+				"Dear " + user.getName() + ",\n\n"
+                + "You have reserved the following room:\n"
+                + "Room Number: " + room.getRoomNumber() + "\n"
+                + "Room Type: " + room.getRoomType() + "\n"
+                + "Start Date: " + reservation.getStartDate() + "\n"
+                + "End Date: " + reservation.getEndDate() + "\n\n"
+                + "Thank you for your reservation.";
+		
+		System.out.println(toEmail);
+		System.out.println(subject);
+		System.out.println(message);
+		
+		emailService.sendMail(toEmail, subject, message);
+		
 		return reservationRepo.save(reservation);
 	}
 
@@ -41,6 +74,26 @@ public class ReservationService {
 				reservation.getReservationTime(),
 				reservation.getStartDate(),
 				reservation.getEndDate());
+		
+        User user = userRepo.findById(reservation.getUser().getId()).orElseThrow();
+        HotelRoom room = roomRepo.findById(reservation.getHotelRoom().getId()).orElseThrow();
+		
+        String toEmail = user.getEmail();
+		String subject = "Reservation Updated";
+		String message =
+				"Dear " + user.getName() + ",\n\n"
+                + "You have updated your reservation to the following room:\n"
+                + "Room Number: " + room.getRoomNumber() + "\n"
+                + "Room Type: " + room.getRoomType() + "\n"
+                + "Start Date: " + reservation.getStartDate() + "\n"
+                + "End Date: " + reservation.getEndDate() + "\n\n"
+                + "Thank you for your reservation.";
+		
+		System.out.println(toEmail);
+		System.out.println(subject);
+		System.out.println(message);
+		
+		emailService.sendMail(toEmail, subject, message);
 		return reservationRepo.save(updatedReservation);
 	}
 }
