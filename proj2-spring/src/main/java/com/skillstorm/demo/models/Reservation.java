@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "reservations")
@@ -19,10 +21,12 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+	@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+	@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "room_id")
     private HotelRoom hotelRoom;
