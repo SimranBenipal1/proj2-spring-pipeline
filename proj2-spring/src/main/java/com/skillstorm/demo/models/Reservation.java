@@ -26,7 +26,6 @@ public class Reservation {
     @JoinColumn(name = "user_id")
     private User user;
 
-	@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "room_id")
     private HotelRoom hotelRoom;
