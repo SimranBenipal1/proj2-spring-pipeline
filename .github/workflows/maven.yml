@@ -46,5 +46,5 @@ jobs:
           '
         scp -o StrictHostKeyChecking=no -i private_key proj2-spring/target/proj2-spring-0.0.1-SNAPSHOT.jar ${USER_NAME}@${HOSTNAME}:/home/ec2-user/
         ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-            nohup java -jar -Dspring.profiles.active=prod --spring.mail.username=${EMAIL_USERNAME} --spring.mail.password=${EMAIL_PASSWORD} proj2-spring-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
+            nohup java -jar -Dspring.profiles.active=prod -Dspring.mail.username=${EMAIL_USERNAME} -Dspring.mail.password=${EMAIL_PASSWORD} proj2-spring-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 &
           '
