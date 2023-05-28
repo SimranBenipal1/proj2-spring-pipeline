@@ -14,7 +14,8 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 
 @Entity
@@ -27,6 +28,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value = { "name", "email", "phoneNumber", "language", "timezone", "password", "role", "enabled", "username", "accountNonExpired", "credentialsNonExpired", "accountNonLocked" }, allowSetters = true)
     private User user;
 
     @ManyToOne
