@@ -16,13 +16,18 @@ public class SecurityConfig {
 		//http.authorizeHttpRequests().anyRequest().permitAll();
 		
 		http.authorizeHttpRequests()
-			.mvcMatchers("/hello", "users/register", "/rooms").permitAll()
+			.mvcMatchers("/hello", "users/register", "/rooms", "/login").permitAll()
 			.anyRequest().authenticated();
 		
 		http.httpBasic();
 		
-		http.csrf().disable();
-		
+		http.csrf().disable()
+        .formLogin()
+        .permitAll()
+        .loginProcessingUrl("/login")
+        .usernameParameter("email")
+        .passwordParameter("password");
+				
 		return http.build();
 	}
 	
