@@ -17,7 +17,9 @@ public class RoomService {
 	private RoomRepo roomRepo;
 
     public Page<HotelRoom> findAllRooms(Pageable pageable) {
-        return roomRepo.findAll(pageable);
+    	Pageable adjustedPage = pageable.withPage(pageable.getPageNumber() - 1);
+        //return roomRepo.findAll(pageable);
+    	return roomRepo.findAll(adjustedPage);
     }
 
 	public HotelRoom findRoomById(long id) {

@@ -20,11 +20,11 @@ public class RoomController {
 	@Autowired
 	private RoomService roomService;
 
-    @GetMapping
-    public ResponseEntity<Page<HotelRoom>> getAllRooms(Pageable pageable) {
-        Page<HotelRoom> rooms = roomService.findAllRooms(pageable);
-        return new ResponseEntity<>(rooms, HttpStatus.OK);
-    }
+	@GetMapping
+	public ResponseEntity<List<HotelRoom>> getAllRooms(Pageable pageable) {
+		Page<HotelRoom> rooms = roomService.findAllRooms(pageable);
+		return new ResponseEntity<>(rooms.getContent(), HttpStatus.OK);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<HotelRoom> getRoomById(@PathVariable long id) {
