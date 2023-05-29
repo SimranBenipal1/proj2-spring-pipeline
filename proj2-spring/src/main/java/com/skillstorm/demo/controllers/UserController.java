@@ -30,6 +30,12 @@ public class UserController {
         UserDTO user = userService.findUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    
+    @GetMapping("/username/{email}")
+    public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email){
+    	UserDTO user = userService.findUserByEmail(email);
+    	return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
     //See register function
 //    @PostMapping

@@ -33,7 +33,6 @@ public class HotelRoom {
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
     private BigDecimal price;
     
-    @URL(message = "Invalid picture URL")
     private String pictureUrl;
     
     public HotelRoom() {

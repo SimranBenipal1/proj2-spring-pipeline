@@ -35,6 +35,11 @@ public class UserService implements UserDetailsService {
         User user = userRepo.findById(id).orElseThrow();
         return convertToDTO(user);
     }
+    
+    public UserDTO findUserByEmail(String email) {
+    	User user = userRepo.findByEmail(email).orElseThrow();
+    	return convertToDTO(user);
+    }
 
     public UserDTO createUser(UserDTO userDTO) {
         User user = convertToEntity(userDTO);
