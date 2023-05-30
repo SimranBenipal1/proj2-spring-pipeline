@@ -90,7 +90,7 @@ public class ReservationService {
         List<Reservation> conflictingReservations = reservationRepo.findConflictingReservations(room.getId(), reservation.getStartDate(), reservation.getEndDate());
 
         System.out.println(conflictingReservations.size());
-        if (conflictingReservations.size() > 0) {
+        if (conflictingReservations.size() > 1) {
         	throw new RuntimeException("There is a conflict in reservation time");
         }
 		
