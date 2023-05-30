@@ -109,7 +109,7 @@ public class ReservationService {
 		System.out.println(subject);
 		System.out.println(message);
 		
-		//emailService.sendMail(toEmail, subject, message);
+		emailService.sendMail(toEmail, subject, message);
 		return reservationRepo.save(updatedReservation);
 	}
 	
