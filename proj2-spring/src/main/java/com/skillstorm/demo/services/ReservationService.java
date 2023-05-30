@@ -65,6 +65,8 @@ public class ReservationService {
 		
 		emailService.sendMail(toEmail, subject, message);
 		
+		System.out.println("email sent");
+		
 		return reservationRepo.save(reservation);
 	}
 
